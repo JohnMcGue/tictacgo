@@ -52,25 +52,27 @@ def checkVictory(game):
             return True
     return False
 
+def recursiveDictBuilder(dict,passedSet):
+    print(passedSet)
+    newSet = {0,1,2,3,4,5,6,7,8}-passedSet
+    dict[tuple(passedSet)] = random.randrange(9)
+    if len(newSet) == 0:
+        return dict
+    else:
+        newTuple = tuple(newSet)
+        for i in range(len(newTuple)):
+            return recursiveDictBuilder(dict,passedSet|{newTuple[i]})
+#numDict = recursiveDictBuilder({},set())
+currentSet = set()
 numDict = {():random.randrange(9)}
-for i in range(9):
-    numDict[(i)] = random.randrange(9)
-    for j in range(1,9):
-        numDict[(i,j)] = random.randrange(9)
-        for k in range(2,9):
-            numDict[(i,j,k)] = random.randrange(9)
-            for a in range(3,9):
-                numDict[(i,j,k,a)] = random.randrange(9)
-                for b in range(4,9):
-                    numDict[(i,j,k,a,b)] = random.randrange(9)
-                    for c in range(5,9):
-                        numDict[(i,j,k,a,b,c)] = random.randrange(9)
-                        for d in range(6,9):
-                            numDict[(i,j,k,a,b,c,d)] = random.randrange(9)
-                            for e in range(7,9):
-                                numDict[(i,j,k,a,b,c,d,e)] = random.randrange(9)
-                                for f in range(8,9):
-                                    numDict[(i,j,k,a,b,c,d,e,f)] = random.randrange(9)
+difSet = {0,1,2,3,4,5,6,7,8}-currentSet
+for i in difSet:
+    currentSet = set()|{i}
+    numDict[tuple(currentSet)] = random.randrange(9)
+    difSet2 = {0,1,2,3,4,5,6,7,8}-currentSet
+    for j in difSet2:
+        currentSet = currentSet|{j}
+        numDict[tuple(currentSet)] = random.randrange(9)
 print(numDict)
 node1 =  Node(numDict)
 game = []
